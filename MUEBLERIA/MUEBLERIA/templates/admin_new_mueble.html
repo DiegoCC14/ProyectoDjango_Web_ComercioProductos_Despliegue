@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>View add mueble</title>
+</head>
+<body>
+	<h1>Ingreso de Muebles</h1>
+
+	<form action="{% url 'addNewMueble' %}" method="post" enctype="multipart/form-data">
+		
+		<!--Necesario para el POST no eliminar -->
+		{% csrf_token %}
+		<!--Necesario para el POST no eliminar -->
+
+		<label>Nombre Producto:</label>
+		<input type="text" name="EntradaNombreMueble">
+
+		<br><br>
+		<label>Color:</label>
+		<select></select>
+
+		<br><br>
+		<label>Color Nuevo:</label>
+		<select></select>
+
+		<br><br>
+		<label>Nombre Categoria:</label>
+		<select></select>
+
+		<br><br>
+		<label>Precio:</label>
+		<input type="text" id="EntradaNombreMueble1">
+
+		<br><br>
+		<label>Cantidad Disponible:</label>
+		<input type="text" id="EntradaNombreMueble2">
+
+		<br><br>
+		<label>Porcentaje Descuento:</label>
+		<input type="text" id="EntradaNombreMueble3">
+
+		<br><br>
+		<label>Descripcion Corta:</label>
+		<input type="text" id="EntradaNombreMueble4">
+
+		<br><br>
+		<label>Descripcion Larga:</label>
+		<input type="text" id="EntradaNombreMueble5">
+
+		<br><br>
+		{{formularioImagen}} <!-- Este FormularioImagenes podemos hacer que el usuario ingrese multiples imagenes, 
+								la logica se definio en DB.forms -->
+
+		<br><br>
+		<input type="submit" value="Agregar Producto">
+	</form>
+
+
+</body>
+</html>

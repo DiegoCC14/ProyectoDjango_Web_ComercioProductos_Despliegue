@@ -1,0 +1,144 @@
+
+{% extends 'marco_Plantilla.html' %}
+
+{% block content %}
+
+{% load static %}
+<body class="main-layout">
+    <!-- loader  -->
+
+    <div class="wrapper">
+
+        <div id="content">
+
+            <div class="layout_padding-2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                            <div class="img_box">
+
+                                <figure >
+                                    <img id='Imagen_Producto_Principal' src= {% static "IMG_Proyecto/" %}{{ Producto.Direccion_Imagen_Mueble.0 }} alt="#"  />
+                                </figure>
+
+                            </div>
+                            <i>
+                                {% for i in Producto.Direccion_Imagen_Mueble %}
+                                    <input type="button" name={{forloop.counter}} value={{ forloop.counter }} 
+                                    onClick="Cambio_Imagen( {{ Producto.Direccion_Imagen_Mueble }} , {{forloop.counter}} )" style='width:70px; height:30px'>
+                                {% endfor %}
+                            </i>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 product_detail_side">
+                            <div class="abotext_box">
+                                <div class="product-heading">
+                                    <h2>{{Producto.Nombre_Mueble}}</h2>
+                                </div>
+                                <div class="product-detail-side">
+                                    {% if Producto.Descuento_Mueble != 0 %}
+
+                                        <span><del>${{Producto.Precio_Mueble}}</del>
+                                        </span><span id='Precio_Viejo' class="new-price"></span>
+                                        
+                                        <script type="text/javascript">
+                                            var precio = "{{Producto.Precio_Mueble}}" - ("{{Producto.Precio_Mueble}}" * "{{Producto.Descuento_Mueble}}" / 100)
+                                            document.getElementById("Precio_Viejo").innerHTML = "$" + precio  
+                                        </script>
+
+                                    {% else %}
+                                        <span class="new-price">${{Producto.Precio_Mueble}}</span>
+                                    {% endif %}
+                                </div>
+                                <div class="detail-contant">
+                                    <p>{{Producto.Descripcion_Corta_Mueble}}
+                                        <br><span class="stock">DETALLE PRODUCTO</span>
+                                        <br><span class="stock">DETALLE PRODUCTO</span>
+                                        <br><span class="stock">DETALLE PRODUCTO</span>
+                                        <br><span class="stock">DETALLE PRODUCTO</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="full">
+                                <div class="tab_bar_section">
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#description">Detalles</a> </li>
+                                    </ul>
+                                    <!-- Tab panes -->
+                                    <div class="tab-content">
+                                        <div id="description" class="tab-pane active">
+                                            <div class="product_desc">
+                                                {{Producto.Descripcion_Larga_Mueble}}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="overlay"></div>
+
+    <!-- Javascript files-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.0.0.min.js"></script>
+    <script src="js/plugin.js"></script>
+    <!-- sidebar -->
+    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="js/custom.js"></script>
+    <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#sidebar").mCustomScrollbar({
+                theme: "minimal"
+            });
+
+            $('#dismiss, .overlay').on('click', function() {
+                $('#sidebar').removeClass('active');
+                $('.overlay').removeClass('active');
+            });
+
+            $('#sidebarCollapse').on('click', function() {
+                $('#sidebar').addClass('active');
+                $('.overlay').addClass('active');
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $(".fancybox").fancybox({
+                openEffect: "none",
+                closeEffect: "none"
+            });
+
+            $(".zoom").hover(function() {
+
+                $(this).addClass('transition');
+            }, function() {
+
+                $(this).removeClass('transition');
+            });
+        });
+    </script>
+    <script>
+        function Cambio_Imagen( Lista_IMG ,index_list ){
+            var Nombre_Imagen_Elegida = Lista_IMG [index_list-1] ;
+            document.getElementById("Imagen_Producto_Principal").src='{% static "IMG_Proyecto/" %}'+Nombre_Imagen_Elegida;
+        }
+    </script>
+</body>
+{% endblock %}

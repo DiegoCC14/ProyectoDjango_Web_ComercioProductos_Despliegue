@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>@admin</title>
+</head>
+<body>
+	<div>
+		<h1>ADD NEW CATEGORIAS</h1>
+	</div>
+	<div>
+
+		<form action="{% url 'add_Categorias' %}" method="post" enctype="multipart/form-data" >
+			
+			{% csrf_token %}
+
+			{{formulario.as_p}}
+
+			<input type="submit" value="Agregar">
+		</form>
+
+	</div>
+</body>
+</html>

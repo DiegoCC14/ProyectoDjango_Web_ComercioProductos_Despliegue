@@ -1,0 +1,115 @@
+
+{% extends 'marco_Plantilla.html' %}
+
+
+{% block content %}
+
+    {% load static %} 
+    
+    <!-- end header -->
+    <div class="contactus">
+      <div class="container-fluid">
+        <div class="row">
+           <div class="col-md-8 offset-md-2">
+              <div class="title">
+                 <h2>Todos los Productos</h2>
+              </div>
+           </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ourproduct">
+      <div class="container">
+
+        <br>
+        <div class="center">
+          
+          <font size=4><b>Ordenar por:</b></font>
+            <select >
+              <option value="Mas_Vendido">Mas Vendido</option>
+              <option value="Menor_Precio">Menor Precio</option>
+              <option value="Mayor_Precio">Mayor Precio</option>
+              <option value="Mayor_Descuento">Descuento</option>
+            </select>
+        </div>
+
+        <div class="row product_style_3">
+          <!-- product DJANGO BUCLE FOR-->
+          {% for prod in Productos %}
+          <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+            <div class="full product">
+              <div class="product_img">
+                <div class="center"> <img src= {% static "IMG_Proyecto/" %}{{ prod.Direccion_Imagen_Mueble }} />
+                  
+                  <div class="overlay_hover"> 
+                    <a href= "{% url 'detalle_producto' Name_Product=prod.Nombre_Mueble %}" class="add-bt"  >+ Añadir al carrito
+                      <p><small>{{prod.Descripcion_Corta_Mueble}}</small></p>
+                    </a>
+                  </div>
+
+                </div>
+              </div>
+              <div class="product_detail text_align_center">
+
+                {% if prod.Descuento_Mueble != 0 %}
+                  <span class="old_price">{{prod.Precio_Mueble}}</span>
+                  
+                  <!-- CADA ELEMENTO SE REPRESENTARA POR UNA CLAVE PRIMARIA, EN ESTE CASO SU LLAVE, prod.Nombre_Mueble --> 
+                  <p id="{{prod.Nombre_Mueble}}" class="product_price"> HELLO COMO LE VA
+                  <!-- CADA ELEMENTO SE REPRESENTARA POR UNA CLAVE PRIMARIA, EN ESTE CASO SU LLAVE, prod.Nombre_Mueble -->
+
+                  <script type="text/javascript">
+                    var precio = "{{prod.Precio_Mueble}}" - ("{{prod.Precio_Mueble}}" * "{{prod.Descuento_Mueble}}" / 100)
+                    document.getElementById("{{prod.Nombre_Mueble}}").innerHTML = "$" + precio  
+                  </script>
+                {% else %}
+                  <p class="product_price">${{prod.Precio_Mueble}}
+                {% endif %}
+
+                 
+                  {% if prod.Descuento_Mueble != 0 %}
+                    <span><small>{{prod.Descuento_Mueble}}% OFF</small></span> 
+                  {% endif %}
+                </p>
+
+                <p class="product_descr">{{prod.Nombre_Mueble}}</p>
+              </div>
+            </div>
+          </div>
+          <!-- end product -->
+          {% endfor %}
+
+
+        </div>
+      </div>
+    </div>
+
+
+      
+    <!-- Javascript files-->  
+    <script src= "{% static 'static_index/js/plugin.js' %}" ></script>
+
+    <script>
+
+      $(document).ready(function(){
+         $(".fancybox").fancybox({
+         openEffect: "none",
+         closeEffect: "none"
+         });
+         
+         $(".zoom").hover(function(){
+         
+         $(this).addClass('transition');
+         }, function(){
+         
+         $(this).removeClass('transition');
+         });
+       });
+
+      
+      
+       
+    </script>
+
+{% endblock %}

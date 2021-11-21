@@ -1,0 +1,11 @@
+- Instalacion Python 3.8.10 (Pagina principal):
+	https://www.python.org/downloads/release/python-3810/
+
+- Instalacion Django: 
+	python -m pip install Django
+
+- Instalacion mysqlclient: 
+	pip install mysqlclient
+
+
+
